@@ -1,14 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 
-const Page = () => {
-  return (
-    <View style={styles.containerStyle}>
-    </View>
-  );
-
-}
-
+const Page = () => <View style={styles.containerStyle} />;
 
 const styles = {
   containerStyle: {
@@ -23,9 +16,8 @@ const styles = {
     elevation: 1,
     marginRight: 5,
     marginLeft: 5,
-    marginTop: 10
-  }
-
+    marginTop: 10,
+  },
 };
 
-exprot default Page;
+export default Page;

@@ -7,18 +7,17 @@ import Section from './src/components/Section.js';
 import Header from './src/Header.js';
 
 const App = () => {
-
   const { itemStyle, textStyle } = styles;
 
   return (
     <View>
-      <Header headerText={'Bazaar'}></Header>
+      <Header headerText="Bazaar" />
       <Button onPress={() => Linking.openURL('https://github.com/steevejoseph/bazaar-mobile')}>See the code!</Button>
       <Button>Signup</Button>
       <Button>Login</Button>
     </View>
   );
-}
+};
 
 const styles = {
   itemStyle: {
@@ -26,16 +25,15 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'stretch',
-    backgroundColor: '#000'
+    backgroundColor: '#000',
   },
 
   textStyle: {
     fontSize: 32,
     fontWeight: '600',
     flexDirection: 'row',
-    justifyContent: 'center'
-  }
-
+    justifyContent: 'center',
+  },
 };
 
 AppRegistry.registerComponent(appName, () => App);

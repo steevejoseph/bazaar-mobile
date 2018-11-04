@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 
-
-const Section = (props) => {
-  return (
-    <View style={styles.containerStyle}>
-      {props.children}
-    </View>
-  );
-};
-
+const Section = props => <View style={styles.containerStyle}>{props.children}</View>;
 
 const styles = {
   containerStyle: {
@@ -19,8 +11,8 @@ const styles = {
     justifyContent: 'flex-start',
     flexDirection: 'row',
     borderColor: '#ddd',
-    position: 'relative'
-  }
+    position: 'relative',
+  },
 };
 
 export default Section;
