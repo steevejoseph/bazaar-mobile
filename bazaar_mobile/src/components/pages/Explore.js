@@ -18,13 +18,17 @@ class Explore extends Component {
   }
 
   renderServices() {
-    return this.state.services.map(service => <Text key={service._id}>{service.name}</Text>);
+    return this.state.services.map(service => (
+      <CardSection key={service._id}>
+        <Text>{service.name}</Text>
+      </CardSection>
+    ));
   }
 
   render() {
     return (
       <Card>
-        <ScrollView>{this.renderServices()}</ScrollView>
+        <ScrollView style={{ marginBottom: 3 }}>{this.renderServices()}</ScrollView>
         <Footer footerText="" />
       </Card>
     );
