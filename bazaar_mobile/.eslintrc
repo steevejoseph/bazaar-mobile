@@ -19,6 +19,7 @@
     "jquery": true
   },
   "rules": {
+    "react/jsx-no-bind": "off",
     "react/prop-types": "off",
     "no-use-before-define": "off",
     "react/prefer-stateless-function": "off",
