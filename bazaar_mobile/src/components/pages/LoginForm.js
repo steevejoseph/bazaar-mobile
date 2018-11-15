@@ -60,10 +60,7 @@ class LoginForm extends Component {
 
         {this.renderError()}
 
-        <CardSection>
-          {this.renderButton()}
-          {/* <Button onPress={() => Actions.Explore({ type: 'reset' })}>Log in</Button> */}
-        </CardSection>
+        <CardSection>{this.renderButton()}</CardSection>
       </Card>
     );
   }

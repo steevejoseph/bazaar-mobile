@@ -7,7 +7,6 @@ export const fetchUserServices = userId => dispatch => {
   axios
     .get(`${ROOT_URL}/services/user/${userId}/`)
     .then(response => {
-      // console.log(`res from fetchUserServices: \n ${JSON.stringify(response.data.userServices)}`);
       dispatch({ type: FETCH_USER_SERVICES, payload: response.data.userServices });
     })
     .catch(err => console.log(`Error in fetchUserServices: \n ${err}`));
