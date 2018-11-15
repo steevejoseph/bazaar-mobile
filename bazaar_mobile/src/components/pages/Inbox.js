@@ -5,10 +5,13 @@ import { Card, CardSection, Button, Spinner, Header, Footer } from '../common';
 
 class Inbox extends Component {
   render() {
+    const { scrollViewStyle, placeholderStyle } = styles;
     return (
       <Card>
-        <ScrollView>
-          <Text>Placeholder</Text>
+        <ScrollView style={{ backgroundColor: '#f8f8f8' }} contentContainerStyle={scrollViewStyle}>
+          <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+            <Text style={placeholderStyle}>You have no messages.</Text>
+          </View>
         </ScrollView>
         <Footer footerText="" />
       </Card>
@@ -16,4 +19,18 @@ class Inbox extends Component {
   }
 }
 
-export { Inbox };
+const styles = {
+  scrollViewStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 200,
+  },
+  placeholderStyle: {
+    color: '#333',
+    opacity: 0.25,
+    fontSize: 16,
+    fontWeight: '600',
+  },
+};
+
+export default Inbox;
