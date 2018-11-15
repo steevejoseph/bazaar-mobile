@@ -75,7 +75,7 @@ const loginUserSuccess = (dispatch, user, token) => {
     payload: { user, token },
   });
 
-  Actions.Explore();
+  Actions.Explore({ type: 'reset' });
 };
 
 // Added by stee.
