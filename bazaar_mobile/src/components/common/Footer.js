@@ -1,10 +1,7 @@
-// Import libraries
 import React from 'react';
 import { Text, ScrollView, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Button, CardSection } from '.';
-
-// Make a component
 
 const Footer = props => {
   const { textStyle, viewStyle, footerButtonStyle } = styles;
@@ -41,7 +38,6 @@ const styles = {
     // shadowColor: '#000',
     // shadowOffset: { width: 0, height: 2 },
     // shadowOpacity: 0.2,
-    // backgroundColor: 'red',
   },
 
   textStyle: {
@@ -52,14 +48,11 @@ const styles = {
   footerButtonStyle: {
     marginLeft: 0,
     marginRight: 0,
-    // backgroundColor: 'black',
     borderRadius: 0,
     borderWidth: 0,
     justifyContent: 'center',
     alignItems: 'space-around',
   },
 };
-
-// Make the component
 
 export { Footer };

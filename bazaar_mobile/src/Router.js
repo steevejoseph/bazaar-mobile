@@ -17,7 +17,13 @@ const RouterComponent = () => {
         <Scene key="SignupForm" component={SignupForm} />
         <Scene key="Explore" component={Explore} title="Explore" />
         <Scene key="Favorites" component={Favorites} title="Favorites" />
-        <Scene key="MyServices" component={MyServices} title="My Services" />
+        <Scene
+          key="MyServices"
+          component={MyServices}
+          title="My Services"
+          rightTitle="Add"
+          onRight={() => console.log()}
+        />
         <Scene key="Inbox" component={Inbox} title="Inbox" />
         <Scene key="Profile" component={Profile} title="Profile" />
       </Scene>

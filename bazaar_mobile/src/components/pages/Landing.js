@@ -7,9 +7,6 @@ class Landing extends Component {
   render() {
     return (
       <Card>
-        {/* <CardSection>
-          <Header headerText="Bazaar" />
-        </CardSection> */}
         <CardSection>
           <Button onPress={() => Actions.SignupForm()}>Sign up</Button>
         </CardSection>
