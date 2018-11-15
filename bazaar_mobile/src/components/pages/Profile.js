@@ -11,7 +11,7 @@ class Profile extends Component {
     const { infoTextStyle, infoContainerStyle, userTextStyle } = styles;
     return (
       <Card>
-        <ScrollView>
+        <ScrollView style={{ backgroundColor: '#f8f8f8' }}>
           <CardSection style={infoContainerStyle}>
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start' }}>
               <Text style={infoTextStyle}>First Name</Text>

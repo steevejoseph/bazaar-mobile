@@ -28,7 +28,7 @@ class Explore extends Component {
   render() {
     return (
       <Card>
-        <ScrollView style={{ marginBottom: 3 }}>{this.renderServices()}</ScrollView>
+        <ScrollView style={{ marginBottom: 3, backGroundColor: '#f8f8f8' }}>{this.renderServices()}</ScrollView>
         <Footer footerText="" />
       </Card>
     );
