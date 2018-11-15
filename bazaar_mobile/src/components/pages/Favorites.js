@@ -15,4 +15,4 @@ class Favorites extends Component {
     );
   }
 }
-export { Favorites };
+export default Favorites;

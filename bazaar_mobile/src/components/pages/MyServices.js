@@ -15,4 +15,4 @@ class MyServices extends Component {
     );
   }
 }
-export { MyServices };
+export default MyServices;

@@ -35,4 +35,4 @@ class Explore extends Component {
   }
 }
 
-export { Explore };
+export default Explore;

@@ -16,4 +16,4 @@ class Inbox extends Component {
   }
 }
 
-export { Inbox };
+export default Inbox;

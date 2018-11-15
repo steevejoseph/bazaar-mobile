@@ -34,7 +34,7 @@ export const loginUser = ({ email, password }) => dispatch => {
       const user = response.data.user;
       const token = response.data.token;
 
-      console.log(`response: ${JSON.stringify(response.data.user)}`);
+      // console.log(`response: ${JSON.stringify(response.data.user)}`);
       loginUserSuccess(dispatch, user, token);
     })
     .catch(err => {

@@ -1,26 +1,38 @@
 import React, { Component } from 'react';
 import { Text, View, Linking, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import { Card, CardSection, Button, Spinner, Header, Footer } from '../common';
+// import { emailChanged, passwordChanged, loginUser } from '../../actions';
 
 class Profile extends Component {
   render() {
-    const { infoTextStyle, infoContainerStyle } = styles;
+    const { firstName, lastName, email } = this.props.user;
+    const { infoTextStyle, infoContainerStyle, userTextStyle } = styles;
     return (
       <Card>
         <ScrollView>
           <CardSection style={infoContainerStyle}>
-            <Text style={infoTextStyle}>First Name:</Text>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start' }}>
+              <Text style={infoTextStyle}>First Name</Text>
+              <Text style={userTextStyle}>{firstName}</Text>
+            </View>
           </CardSection>
           <CardSection style={infoContainerStyle}>
-            <Text style={infoTextStyle}>Last Name:</Text>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start' }}>
+              <Text style={infoTextStyle}>Last Name</Text>
+              <Text style={userTextStyle}>{lastName}</Text>
+            </View>
           </CardSection>
           <CardSection style={infoContainerStyle}>
-            <Text style={infoTextStyle}>Email:</Text>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start' }}>
+              <Text style={infoTextStyle}>Email </Text>
+              <Text style={[userTextStyle, { textAlign: 'left' }]}>{email}</Text>
+            </View>
           </CardSection>
-          <CardSection style={infoContainerStyle}>
+          {/* <CardSection style={infoContainerStyle}>
             <Text style={infoTextStyle}>Phone number:</Text>
-          </CardSection>
+          </CardSection> */}
         </ScrollView>
         <Button
           style={{ backgroundColor: 'red', marginBottom: 10, alignSelf: 'stretch' }}
@@ -36,18 +48,49 @@ class Profile extends Component {
 
 const styles = {
   infoContainerStyle: {
+    flex: 1,
+    flexDirection: 'row',
     justifyContent: 'flex-start',
+    // alignItems: 'flex-end',
   },
   infoTextStyle: {
+    // flex: 1,
+    flexDirection: 'row',
     color: '#000',
     fontSize: 16,
-    textAlign: 'left',
+    // textAlign: 'left',
     fontWeight: '600',
-    alignSelf: 'stretch',
+    // alignSelf: 'stretch',
     paddingTop: 10,
     paddingBottom: 10,
     opacity: 0.5,
+    // backgroundColor: 'orange',
+    width: 80,
+  },
+  userTextStyle: {
+    flex: 1,
+    color: '#333',
+    fontSize: 16,
+    alignSelf: 'center',
+    textAlign: 'left',
+    marginLeft: 20,
+    // marginRight: 5,
+
+    // paddingLeft: 35,
+    // backgroundColor: 'orange',
+    paddingTop: 10,
+    paddingBottom: 10,
+    // opacity: 0.75,
+    fontWeight: '800',
   },
 };
 
-export { Profile };
+const mapStateToProps = state => ({
+  user: state.auth.user,
+  token: state.auth.token,
+});
+
+export default connect(
+  mapStateToProps,
+  {}
+)(Profile);
