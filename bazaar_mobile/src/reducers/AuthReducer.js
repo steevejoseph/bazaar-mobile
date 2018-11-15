@@ -23,7 +23,8 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log(action);
+  // uncomment for play-by-play debugging of action -> reducer pathway.
+  // console.log(action);
 
   switch (action.type) {
     case EMAIL_CHANGED:

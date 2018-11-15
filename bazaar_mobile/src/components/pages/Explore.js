@@ -12,7 +12,7 @@ class Explore extends Component {
 
   componentWillMount() {
     axios.get('https://bazaar-backend.herokuapp.com/api/services').then(response => {
-      console.log(response.data);
+      // console.log(response.data);
       this.setState({ services: response.data.services });
     });
   }

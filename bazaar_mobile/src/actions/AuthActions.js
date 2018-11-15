@@ -1,6 +1,7 @@
 // import firebase from 'firebase';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
+import { AsyncStorage } from 'react-native';
 
 import {
   EMAIL_CHANGED,
@@ -30,14 +31,34 @@ export const loginUser = ({ email, password }) => dispatch => {
 
   axios
     .post('https://bazaar-backend.herokuapp.com/api/users/login', { email, password })
-    .then(response => {
+    .then(async response => {
       const user = response.data.user;
       const token = response.data.token;
-
       // console.log(`response: ${JSON.stringify(response.data.user)}`);
-      loginUserSuccess(dispatch, user, token);
+
+      // put token in async storage.
+      await AsyncStorage.setItem('token', token)
+        .then(async () => {
+          // take it right back out
+          await AsyncStorage.getItem('token')
+            .then(tokenFromAsyncStorage => {
+              // set the headers for all logged in requests the way the API expects them.
+              axios.defaults.headers.common.Authorization = `Bearer ${tokenFromAsyncStorage}`;
+              loginUserSuccess(dispatch, user, token);
+            })
+            .catch(() => {
+              console.log('Error retrieving token back from AsyncStorage!');
+              loginUserFail(dispatch);
+            });
+        })
+        .catch(err => {
+          console.log('Error setting token in AsyncStorage!');
+          console.log(err);
+          loginUserFail(dispatch);
+        });
     })
     .catch(err => {
+      console.log('Error in axios request in src/actions/AuthActions.js:loginUser()');
       console.log(err);
       loginUserFail(dispatch);
     });
