@@ -12,7 +12,6 @@ class Explore extends Component {
 
   componentWillMount() {
     axios.get('https://bazaar-backend.herokuapp.com/api/services').then(response => {
-      // console.log(response.data);
       this.setState({ services: response.data.services });
     });
   }
@@ -28,7 +27,7 @@ class Explore extends Component {
   render() {
     return (
       <Card>
-        <ScrollView style={{ marginBottom: 3, backGroundColor: '#f8f8f8' }}>{this.renderServices()}</ScrollView>
+        <ScrollView style={{ backGroundColor: '#f8f8f8' }}>{this.renderServices()}</ScrollView>
         <Footer footerText="" />
       </Card>
     );

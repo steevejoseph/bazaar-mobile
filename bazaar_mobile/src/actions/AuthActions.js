@@ -1,4 +1,3 @@
-// import firebase from 'firebase';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 import { AsyncStorage } from 'react-native';
@@ -32,17 +31,12 @@ export const loginUser = ({ email, password }) => dispatch => {
   axios
     .post('https://bazaar-backend.herokuapp.com/api/users/login', { email, password })
     .then(async response => {
-      const user = response.data.user;
-      const token = response.data.token;
-      // console.log(`response: ${JSON.stringify(response.data.user)}`);
+      const { user, token } = response.data;
 
-      // put token in async storage.
       await AsyncStorage.setItem('token', token)
         .then(async () => {
-          // take it right back out
           await AsyncStorage.getItem('token')
             .then(tokenFromAsyncStorage => {
-              // set the headers for all logged in requests the way the API expects them.
               axios.defaults.headers.common.Authorization = `Bearer ${tokenFromAsyncStorage}`;
               loginUserSuccess(dispatch, user, token);
             })
@@ -68,17 +62,15 @@ export const loginUserFail = dispatch => {
   dispatch({ type: LOGIN_USER_FAIL });
 };
 
-// @remember: take a look at this code, it was too easy to write. Should be as simple as adding `token` to the func to be dispatched.
-const loginUserSuccess = (dispatch, user, token) => {
+const loginUserSuccess = (dispatch, user) => {
   dispatch({
     type: LOGIN_USER_SUCCESS,
-    payload: { user, token },
+    payload: user,
   });
 
-  Actions.Explore();
+  Actions.Explore({ type: 'reset' });
 };
 
-// Added by stee.
 export const firstNameChanged = text => ({
   type: FIRST_NAME_CHANGED,
   payload: text,

@@ -3,7 +3,6 @@ import { Text, View, Linking, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { Card, CardSection, Button, Spinner, Header, Footer } from '../common';
-// import { emailChanged, passwordChanged, loginUser } from '../../actions';
 
 class Profile extends Component {
   render() {
@@ -51,22 +50,19 @@ const styles = {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    // alignItems: 'flex-end',
   },
+
   infoTextStyle: {
-    // flex: 1,
     flexDirection: 'row',
     color: '#000',
     fontSize: 16,
-    // textAlign: 'left',
     fontWeight: '600',
-    // alignSelf: 'stretch',
     paddingTop: 10,
     paddingBottom: 10,
     opacity: 0.5,
-    // backgroundColor: 'orange',
     width: 80,
   },
+
   userTextStyle: {
     flex: 1,
     color: '#333',
@@ -74,13 +70,8 @@ const styles = {
     alignSelf: 'center',
     textAlign: 'left',
     marginLeft: 20,
-    // marginRight: 5,
-
-    // paddingLeft: 35,
-    // backgroundColor: 'orange',
     paddingTop: 10,
     paddingBottom: 10,
-    // opacity: 0.75,
     fontWeight: '800',
   },
 };
