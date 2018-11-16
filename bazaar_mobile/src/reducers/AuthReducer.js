@@ -37,9 +37,9 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, loading: true, error: '' };
 
     case LOGIN_USER_SUCCESS:
-      // console.log(`current user: ${action.payload.user}`);
+      // console.dir(`current user: ${JSON.stringify(action.payload)}`);
       // console.log(`tokini:${action.payload.token}`);
-      return { ...state, ...INITIAL_STATE, user: action.payload.user };
+      return { ...state, ...INITIAL_STATE, user: action.payload };
 
     case LOGIN_USER_FAIL:
       return { ...state, error: 'Authentication Failed.', loading: false, password: '' };
