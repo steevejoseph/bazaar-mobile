@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Linking, ScrollView, Image } from 'react-native';
+import { Text, View, Linking, ScrollView, Image, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 import Carousel from 'react-native-carousel';
@@ -14,7 +14,7 @@ const images = [
 
 const getImg = () =>
   images.map(img => (
-    <View>
+    <View key={img}>
       {/* <Text>Hi</Text> */}
       <Image style={{ width: '100%', height: '100%' }} source={{ uri: img }} />
     </View>
@@ -26,7 +26,6 @@ class Landing extends Component {
     this.state = { pics: [] };
     this._carousel = {};
   }
-
   render() {
     const { scrollViewContainerStyle } = styles;
     return (
@@ -58,3 +57,4 @@ const styles = {
 };
 
 export default Landing;
+
