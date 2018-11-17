@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 
 const Card = props => <View style={styles.constainerStyle}>{props.children}</View>;

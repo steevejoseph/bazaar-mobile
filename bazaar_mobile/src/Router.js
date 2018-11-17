@@ -4,7 +4,7 @@ import { Scene, Router, Actions } from 'react-native-router-flux';
 import Landing from './components/pages/Landing';
 import LoginForm from './components/pages/LoginForm';
 import SignupForm from './components/pages/SignupForm';
-import { Explore, Favorites, Inbox, Profile, MyServices } from './components/pages/index';
+import { Explore, Favorites, Inbox, Profile, MyServices, ServiceView } from './components/pages/index';
 
 const RouterComponent = () => {
   const { navTitleStyle } = styles;
@@ -24,6 +24,7 @@ const RouterComponent = () => {
           rightTitle="Add"
           onRight={() => console.log()}
         />
+        <Scene key="ServiceView" component={ServiceView} />
         <Scene key="Inbox" component={Inbox} title="Inbox" />
         <Scene key="Profile" component={Profile} title="Profile" />
       </Scene>

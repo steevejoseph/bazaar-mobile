@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, Linking, ScrollView, Image, Dimensions } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { View, Linking, Image } from 'react-native';
 import axios from 'axios';
 import Carousel from 'react-native-carousel';
-import { Card, CardSection, Button, Spinner, Header } from '../common';
+
+import { Actions } from 'react-native-router-flux';
+import { Card, CardSection, Button } from '../common';
 // import SideScroller from '../SideScroller'; so long old friend.
 
 const images = [
@@ -21,11 +22,6 @@ const getImg = () =>
   ));
 
 class Landing extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { pics: [] };
-    this._carousel = {};
-  }
   render() {
     const { scrollViewContainerStyle } = styles;
     return (
@@ -57,4 +53,3 @@ const styles = {
 };
 
 export default Landing;
-

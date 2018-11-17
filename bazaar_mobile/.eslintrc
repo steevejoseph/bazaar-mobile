@@ -19,6 +19,7 @@
     "jquery": true
   },
   "rules": {
+    "class-methods-use-this": "off",
     "prefer-destructuring": "off",
     "react/jsx-no-bind": "off",
     "react/prop-types": "off",

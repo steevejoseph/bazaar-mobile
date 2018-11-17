@@ -14,3 +14,5 @@ export const FETCH_USER_SERVICES = 'fetch_user_services';
 export const CREATE_SERVICE = 'create_service';
 export const EDIT_SERVICE = 'edit_service';
 export const DELETE_SERVICE = 'delete_service';
+
+export const FETCH_ALL_SERVICES = 'fetch_all_services';

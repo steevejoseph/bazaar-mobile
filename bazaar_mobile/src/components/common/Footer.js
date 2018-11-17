@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, ScrollView, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { Button, CardSection } from '.';
+import { Button } from './Button';
 
 const Footer = props => {
   const { textStyle, viewStyle, footerButtonStyle } = styles;
