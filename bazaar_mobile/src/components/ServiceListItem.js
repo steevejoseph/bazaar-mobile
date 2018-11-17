@@ -5,11 +5,10 @@ import { CardSection } from './common';
 
 class ServiceListItem extends Component {
   onRowPress() {
-    // console.log(this.props);
+    Actions.ServiceView({ service: this.props.service.item });
   }
 
   render() {
-    console.log(this.props.service.item.name);
     const name = this.props.service.item.name;
     return (
       <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>

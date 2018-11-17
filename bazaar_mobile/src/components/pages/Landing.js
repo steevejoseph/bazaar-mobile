@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, Linking } from 'react-native';
+import { Linking } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { Card, CardSection, Button, Spinner, Header } from '../common';
+import { Card, CardSection, Button } from '../common';
 
 class Landing extends Component {
   render() {

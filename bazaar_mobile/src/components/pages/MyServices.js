@@ -5,7 +5,6 @@ import { Card, Footer } from '../common';
 import ServiceList from '../ServiceList';
 import { fetchUserServices } from '../../actions';
 
-const ROOT_URL = 'https://bazaar-backend.herokuapp.com/api';
 class MyServices extends Component {
   componentWillMount() {
     this.props.fetchUserServices(this.props.user._id);
