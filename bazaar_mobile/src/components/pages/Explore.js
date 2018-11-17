@@ -1,34 +1,14 @@
 import React, { Component } from 'react';
-import { Text, View, Linking, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import axios from 'axios';
-import { Card, CardSection, Button, Spinner, Header, Footer } from '../common';
+import { Card, Footer } from '../common';
+import ServiceList from '../ServiceList';
 
 class Explore extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { services: [] };
-  }
-
-  componentWillMount() {
-    axios.get('https://bazaar-backend.herokuapp.com/api/services').then(response => {
-      this.setState({ services: response.data.services });
-    });
-  }
-
-  renderServices() {
-    return this.state.services.map(service => (
-      <CardSection key={service._id}>
-        <Text>{service.name}</Text>
-      </CardSection>
-    ));
-  }
-
   render() {
     return (
       <Card>
-        <ScrollView style={{ backGroundColor: '#f8f8f8' }}>{this.renderServices()}</ScrollView>
-        <Footer footerText="" />
+        <ServiceList />
+        <Footer />
       </Card>
     );
   }
