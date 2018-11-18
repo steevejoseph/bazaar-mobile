@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
-const Card = props => <View style={styles.constainerStyle}>{props.children}</View>;
+const Card = props => <View style={[styles.constainerStyle, props.style]}>{props.children}</View>;
 
 const styles = {
   constainerStyle: {
@@ -14,9 +14,9 @@ const styles = {
     shadowOpacity: 0.2,
     shadowRadius: 2,
     elevation: 1,
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 10,
+    // marginLeft: 5,
+    // marginRight: 5,
+    // marginTop: 10,
     flex: 1,
   },
 };

@@ -1,33 +1,31 @@
 import React, { Component } from 'react';
-import { View, Linking, Image } from 'react-native';
+import { View, Linking, Image, ImageBackground, Text } from 'react-native';
 import axios from 'axios';
 import Carousel from 'react-native-carousel';
 
 import { Actions } from 'react-native-router-flux';
 import { Card, CardSection, Button } from '../common';
-// import SideScroller from '../SideScroller'; so long old friend.
 
 const images = [
-  'https://s-media-cache-ak0.pinimg.com/originals/ee/51/39/ee5139157407967591081ee04723259a.png',
-  'https://s-media-cache-ak0.pinimg.com/originals/40/4f/83/404f83e93175630e77bc29b3fe727cbe.jpg',
-  'https://s-media-cache-ak0.pinimg.com/originals/8d/1a/da/8d1adab145a2d606c85e339873b9bb0e.jpg',
+  'https://images.unsplash.com/photo-1414611091494-9dc36f7730b0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=00b1a6b38677f1706416fdeecb5d7551&auto=format&fit=crop&w=1050&q=80',
+  'https://images.unsplash.com/photo-1535448996690-4277028bb0e5?ixlib=rb-0.3.5&s=c47e010362a29f057ea3bcd6aac3bfc4&auto=format&fit=crop&w=1050&q=80',
+  'https://images.unsplash.com/photo-1493612276216-ee3925520721?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=f75361bb535d798b9936d0b3f53e9cd3&auto=format&fit=crop&w=700&q=80',
+  'https://images.unsplash.com/photo-1516807947649-1054add6bc97?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=11be05062d1f7ba80ca7d217e0aa241f&auto=format&fit=crop&w=500&q=60',
 ];
 
 const getImg = () =>
   images.map(img => (
     <View key={img}>
       {/* <Text>Hi</Text> */}
-      <Image style={{ width: '100%', height: '100%' }} source={{ uri: img }} />
+      <ImageBackground style={{ width: '100%', height: '100%' }} source={{ uri: img }} />
     </View>
   ));
 
-class Landing extends Component {
+export default class Landing extends Component {
   render() {
-    const { scrollViewContainerStyle } = styles;
     return (
-      <Card>
-        {/* <SideScroller /> */}
-        <Carousel loop animate hideIndicators delay={3000}>
+      <Card style={{ flex: 1 }}>
+        <Carousel loop animate hideIndicators delay={2500}>
           {getImg()}
         </Carousel>
         <CardSection>
@@ -45,11 +43,3 @@ class Landing extends Component {
     );
   }
 }
-
-const styles = {
-  scrollViewContainerStyle: {
-    horizontal: true,
-  },
-};
-
-export default Landing;

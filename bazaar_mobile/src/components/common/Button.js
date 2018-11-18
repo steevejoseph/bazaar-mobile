@@ -29,8 +29,8 @@ const styles = {
     alignItems: 'center',
     alignSelf: 'stretch',
     backgroundColor: '#fff',
-    marginLeft: 5,
-    marginRight: 5,
+    // marginLeft: 5,
+    // marginRight: 5,
   },
 };
 
