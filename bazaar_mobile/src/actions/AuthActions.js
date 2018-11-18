@@ -105,7 +105,7 @@ const signupUserSuccess = (dispatch, user, token) => {
     payload: { user, token },
   });
 
-  Actions.Profile();
+  Actions.Landing({ type: 'reset' });
 };
 
 const signupUserFail = dispatch => {
