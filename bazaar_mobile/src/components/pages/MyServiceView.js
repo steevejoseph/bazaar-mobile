@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
-import { Card, CardSection, Button } from '../common';
-import {deleteService} from '../../actions';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import { Card, CardSection, Button } from '../common';
+import { deleteService } from '../../actions';
 
 class MyServiceView extends Component {
-
   onButtonPress() {
     this.props.deleteService(this.props.service._id);
-    Actions.MyServices({ type: 'reset' });
   }
-
 
   render() {
     const { service } = this.props;
@@ -61,4 +58,7 @@ const styles = {
   },
 };
 
-export default  connect(null, {deleteService})(MyServiceView);
+export default connect(
+  null,
+  { deleteService }
+)(MyServiceView);

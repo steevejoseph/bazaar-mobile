@@ -5,7 +5,16 @@ import Landing from './components/pages/Landing';
 import LoginForm from './components/pages/LoginForm';
 import SignupForm from './components/pages/SignupForm';
 
-import { Explore, Favorites, Inbox, Profile, MyServices, ServiceView, MyServiceView } from './components/pages/index';
+import {
+  Explore,
+  Favorites,
+  Inbox,
+  Profile,
+  MyServices,
+  ServiceView,
+  MyServiceView,
+  ServiceCreate,
+} from './components/pages/index';
 
 const RouterComponent = () => {
   const { navTitleStyle } = styles;
@@ -18,12 +27,13 @@ const RouterComponent = () => {
         <Scene key="SignupForm" component={SignupForm} />
         <Scene key="Explore" component={Explore} title="Explore" />
         <Scene key="Favorites" component={Favorites} title="Favorites" />
+        <Scene key="ServiceCreate" component={ServiceCreate} title="Create A Service" />
         <Scene
           key="MyServices"
           component={MyServices}
           title="My Services"
           rightTitle="Add"
-          onRight={() => console.log()}
+          onRight={() => Actions.ServiceCreate()}
         />
 
         <Scene key="ServiceView" component={ServiceView} />
@@ -31,7 +41,6 @@ const RouterComponent = () => {
 
         <Scene key="Inbox" component={Inbox} title="Inbox" />
         <Scene key="Profile" component={Profile} title="Profile" />
-
       </Scene>
     </Router>
   );
