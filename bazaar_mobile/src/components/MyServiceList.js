@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FlatList, View } from 'react-native';
 import { SearchBar } from 'react-native-elements';
-import ServiceListItem from './ServiceListItem';
+import MyServiceListItem from './MyServiceListItem';
 
 class ServiceList extends Component {
   constructor(props) {
@@ -28,7 +28,7 @@ class ServiceList extends Component {
   }
 
   renderItem(service) {
-    return <ServiceListItem service={service} />;
+    return <MyServiceListItem service={service} deleteService={this.props.deleteService} />;
   }
 
   render() {
@@ -45,7 +45,7 @@ class ServiceList extends Component {
         <FlatList
           style={{ backGroundColor: '#f8f8f8' }}
           data={this.state.services}
-          renderItem={this.renderItem}
+          renderItem={this.renderItem.bind(this)}
           keyExtractor={(item, index) => index.toString()} // TODO: make KeyExtractor pull service ID.
         />
       </View>

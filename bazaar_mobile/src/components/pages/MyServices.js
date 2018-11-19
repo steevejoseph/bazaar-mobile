@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { Card, Footer } from '../common';
-import ServiceList from '../ServiceList';
-import { fetchUserServices } from '../../actions';
+import MyServiceList from '../MyServiceList';
+import { fetchUserServices, deleteService } from '../../actions';
 
 class MyServices extends Component {
   componentWillMount() {
@@ -13,7 +13,7 @@ class MyServices extends Component {
   render() {
     return (
       <Card>
-        <ServiceList services={this.props.services} />
+        <MyServiceList services={this.props.services} deleteService={this.props.deleteService} />
         <Footer />
       </Card>
     );
@@ -27,5 +27,8 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { fetchUserServices }
+  {
+    fetchUserServices,
+    deleteService
+  },
 )(MyServices);
