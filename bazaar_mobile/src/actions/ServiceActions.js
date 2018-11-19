@@ -31,6 +31,21 @@ export const createService = service => dispatch => {
     .catch(err => console.log(`Error in createService: \n ${err}`));
 };
 
+// POSTS to ROOT_URL/services/edit
+export const editService = service => dispatch => {
+  const { name, description, tags, owner, id } = service;
+
+  console.log(`service: ${JSON.stringify(service)}`);
+
+  axios
+    .post(`${ROOT_URL}/services/edit`, { name, description, tags, owner, id })
+    .then(response => {
+      dispatch({ type: EDIT_SERVICE, payload: response.data.result });
+      Actions.MyServices({ type: 'reset' });
+    })
+    .catch(err => console.log(`Error in editService: \n ${err}`));
+};
+
 export const deleteService = serviceId => dispatch => {
   axios
     .post(`${ROOT_URL}/services/delete`, { id: serviceId })
