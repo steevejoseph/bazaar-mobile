@@ -9,12 +9,25 @@ export const fetchUserServices = userId => dispatch => {
     .then(response => {
       dispatch({ type: FETCH_USER_SERVICES, payload: response.data.userServices });
     })
-    .catch(err => console.log(`Error in fetchUserServices: \n ${err}`));
+    .catch(err => { 
+      // console.log(`Error in fetchUserServices: \n ${err}`);
+      // console.log(response);
+      dispatch({ type: FETCH_USER_SERVICES, payload: [] });
+  });
 };
 
 // POSTS to ROOT_URL/services/create
 export const createService = service => dispatch => {
-  const { name, description, tags } = service;
+  const { name, description, tags, owner } = service;
+
+  console.log(`service: ${JSON.stringify(service)}`);
+
+  axios
+  .post(`${ROOT_URL}/services/create`, { service })
+  .then(response => {
+    dispatch({ type: CREATE_SERVICE, payload: response.data.createdService });
+  })
+  .catch(err => console.log(`Error in createService: \n ${err}`));
 };
 
 export const deleteService = serviceId => dispatch => {

@@ -10,3 +10,4 @@ export { default as Inbox } from './Inbox';
 export { default as Profile } from './Profile';
 export { default as MyServices } from './MyServices';
 export { default as ServiceView } from './ServiceView';
+export { default as MyServiceView } from './MyServiceView';

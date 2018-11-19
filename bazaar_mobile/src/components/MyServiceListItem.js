@@ -5,7 +5,7 @@ import { CardSection, Button } from './common';
 
 class MyServiceListItem extends Component {
   onRowPress() {
-    Actions.ServiceView({ service: this.props.service.item });
+    Actions.MyServiceView({ service: this.props.service.item });
   }
 
   onDelete() {
@@ -24,9 +24,9 @@ class MyServiceListItem extends Component {
             </CardSection>
           </View>
         </TouchableWithoutFeedback>
-        <Button onPress={this.onDelete.bind(this)}>
+        {/* <Button onPress={this.onDelete.bind(this)}>
           Delete
-        </Button>
+        </Button> */}
       </View>
     );
   }
@@ -38,7 +38,7 @@ const styles = {
     paddingLeft: 15,
   },
   stretchStyle: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   rowStyle: {
     flex: 1,
