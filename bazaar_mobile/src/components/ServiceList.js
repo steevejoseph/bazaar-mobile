@@ -20,9 +20,14 @@ class ServiceList extends Component {
   onChangeText(text) {
     const services = this.props.services;
     const query = text.toLowerCase();
-    const found = services.filter(
-      service => service.name.toLowerCase().contains(query) || service.description.toLowerCase().contains(query)
-    );
+
+    const found = services.filter(service => {
+      let { name, description } = service;
+      name = name.toLowerCase();
+      description = description.toLowerCase();
+
+      return name.includes(query) || description.includes(query);
+    });
 
     this.setState({ services: found });
   }

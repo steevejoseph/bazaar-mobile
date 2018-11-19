@@ -29,6 +29,6 @@ export default connect(
   mapStateToProps,
   {
     fetchUserServices,
-    deleteService
-  },
+    deleteService,
+  }
 )(MyServices);

@@ -38,7 +38,7 @@ const styles = {
     paddingLeft: 15,
   },
   stretchStyle: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   rowStyle: {
     flex: 1,
