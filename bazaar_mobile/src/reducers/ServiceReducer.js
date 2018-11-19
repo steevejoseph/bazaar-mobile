@@ -14,7 +14,11 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, services: action.payload };
 
     case CREATE_SERVICE:
-      return { ...state, services: [...state.services, action.payload] };
+      return {
+        ...state,
+        services: [...state.services, action.payload],
+        userServices: [...state.userServices, action.payload],
+      };
 
     case DELETE_SERVICE:
       return { ...state, services: action.payload };

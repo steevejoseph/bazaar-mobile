@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Actions } from 'react-native-router-flux';
 import { FETCH_USER_SERVICES, CREATE_SERVICE, EDIT_SERVICE, DELETE_SERVICE, FETCH_ALL_SERVICES } from './types';
 
 const ROOT_URL = 'https://bazaar-backend.herokuapp.com/api';
@@ -9,11 +10,11 @@ export const fetchUserServices = userId => dispatch => {
     .then(response => {
       dispatch({ type: FETCH_USER_SERVICES, payload: response.data.userServices });
     })
-    .catch(err => { 
+    .catch(err => {
       // console.log(`Error in fetchUserServices: \n ${err}`);
       // console.log(response);
       dispatch({ type: FETCH_USER_SERVICES, payload: [] });
-  });
+    });
 };
 
 // POSTS to ROOT_URL/services/create
@@ -23,11 +24,11 @@ export const createService = service => dispatch => {
   console.log(`service: ${JSON.stringify(service)}`);
 
   axios
-  .post(`${ROOT_URL}/services/create`, { service })
-  .then(response => {
-    dispatch({ type: CREATE_SERVICE, payload: response.data.createdService });
-  })
-  .catch(err => console.log(`Error in createService: \n ${err}`));
+    .post(`${ROOT_URL}/services/create`, { name, description, tags, owner })
+    .then(response => {
+      dispatch({ type: CREATE_SERVICE, payload: response.data.createdService });
+    })
+    .catch(err => console.log(`Error in createService: \n ${err}`));
 };
 
 export const deleteService = serviceId => dispatch => {
@@ -37,6 +38,8 @@ export const deleteService = serviceId => dispatch => {
       dispatch({ type: DELETE_SERVICE, payload: response.data.services });
     })
     .catch(err => console.log(`Error in deleteService: \n ${err}`));
+
+  Actions.MyServices({ type: 'reset' });
 };
 
 export const fetchAllServices = () => dispatch => {
