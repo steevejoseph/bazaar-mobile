@@ -14,6 +14,7 @@ import {
   ServiceView,
   MyServiceView,
   ServiceCreate,
+  ServiceEdit,
 } from './components/pages/index';
 
 const RouterComponent = () => {
@@ -28,6 +29,8 @@ const RouterComponent = () => {
         <Scene key="Explore" component={Explore} title="Explore" />
         <Scene key="Favorites" component={Favorites} title="Favorites" />
         <Scene key="ServiceCreate" component={ServiceCreate} title="Create A Service" />
+        <Scene key="ServiceEdit" component={ServiceEdit} title="Edit Service" />
+
         <Scene
           key="MyServices"
           component={MyServices}

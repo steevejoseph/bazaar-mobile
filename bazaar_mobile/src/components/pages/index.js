@@ -12,3 +12,4 @@ export { default as MyServices } from './MyServices';
 export { default as ServiceView } from './ServiceView';
 export { default as MyServiceView } from './MyServiceView';
 export { default as ServiceCreate } from './ServiceCreate';
+export { default as ServiceEdit } from './ServiceEdit';

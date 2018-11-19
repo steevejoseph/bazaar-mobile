@@ -1,4 +1,10 @@
-import { FETCH_USER_SERVICES, FETCH_ALL_SERVICES, CREATE_SERVICE, DELETE_SERVICE } from '../actions/types';
+import {
+  FETCH_USER_SERVICES,
+  FETCH_ALL_SERVICES,
+  CREATE_SERVICE,
+  EDIT_SERVICE,
+  DELETE_SERVICE,
+} from '../actions/types';
 
 const INITIAL_STATE = {
   services: [],
@@ -19,6 +25,9 @@ export default (state = INITIAL_STATE, action) => {
         services: [...state.services, action.payload],
         userServices: [...state.userServices, action.payload],
       };
+
+    case EDIT_SERVICE:
+      return { ...state };
 
     case DELETE_SERVICE:
       return { ...state, services: action.payload };

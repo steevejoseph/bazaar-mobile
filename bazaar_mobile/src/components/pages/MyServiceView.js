@@ -6,8 +6,12 @@ import { Card, CardSection, Button } from '../common';
 import { deleteService } from '../../actions';
 
 class MyServiceView extends Component {
-  onButtonPress() {
+  onDelete() {
     this.props.deleteService(this.props.service._id);
+  }
+
+  onEdit() {
+    Actions.ServiceEdit({ service: this.props.service });
   }
 
   render() {
@@ -24,7 +28,8 @@ class MyServiceView extends Component {
           <Text style={serviceValueStyle}>{service.description}</Text>
         </CardSection>
 
-        <Button onPress={this.onButtonPress.bind(this)}>Delete</Button>
+        <Button onPress={this.onEdit.bind(this)}>Edit</Button>
+        <Button onPress={this.onDelete.bind(this)}>Delete</Button>
       </Card>
     );
   }
