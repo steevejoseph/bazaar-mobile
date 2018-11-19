@@ -17,6 +17,15 @@ export const createService = service => dispatch => {
   const { name, description, tags } = service;
 };
 
+export const deleteService = serviceId => dispatch => {
+  axios
+    .post(`${ROOT_URL}/services/delete`, { id: serviceId })
+    .then(response => {
+      dispatch({ type: DELETE_SERVICE, payload: response.data.services });
+    })
+    .catch(err => console.log(`Error in deleteService: \n ${err}`));
+};
+
 export const fetchAllServices = () => dispatch => {
   axios
     .get(`${ROOT_URL}/services/`)
