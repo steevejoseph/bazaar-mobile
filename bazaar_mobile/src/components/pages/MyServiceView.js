@@ -12,7 +12,6 @@ const ROOT_URL = 'https://bazaar-backend.herokuapp.com/api';
 
 const options = {
   title: 'Select a Picture',
-  // customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
   storageOptions: {
     skipBackup: true,
     path: 'images',
@@ -114,7 +113,14 @@ class MyServiceView extends Component {
           <Text style={serviceFieldStyle}>Description:</Text>
           <Text style={serviceValueStyle}>{service.description}</Text>
         </CardSection>
-
+        <CardSection style={cardSectionStyle}>
+          <Text style={serviceFieldStyle}>Category:</Text>
+          <Text style={serviceValueStyle}>{service.tags}</Text>
+        </CardSection>
+        <CardSection style={cardSectionStyle}>
+          <Text style={serviceFieldStyle}>Price:</Text>
+          <Text style={serviceValueStyle}>${service.price}</Text>
+        </CardSection>
         <Button onPress={this.renderImagePicker.bind(this)}>Choose image</Button>
         {this.renderUploadButton()}
 
