@@ -38,7 +38,7 @@ class MyServiceList extends Component {
 
   render() {
     return (
-      <View style={{ height: '90%' }}>
+      <View style={{ flexDirection: 'column', flex: 1 }}>
         <SearchBar
           lightTheme
           containerStyle={{ backgroundColor: '#fff', marginBottom: 0, paddingBottom: 0 }}
