@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, ImageBackground } from 'react-native';
 import Carousel from 'react-native-carousel';
-import { Card, CardSection } from '../common';
+import { Card, CardSection, Button } from '../common';
 
 class ServiceView extends Component {
   getImg(photos) {
@@ -50,6 +50,7 @@ class ServiceView extends Component {
           <Text style={serviceFieldStyle}>Owner:</Text>
           <Text style={serviceValueStyle}>{service.owner}</Text>
         </CardSection>
+        <Button style={{ backgroundColor: '#dc3545', marginBottom: 10 }}>Interested</Button>
       </Card>
     );
   }
