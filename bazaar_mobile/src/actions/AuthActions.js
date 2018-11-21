@@ -13,7 +13,10 @@ import {
   SIGNUP_USER_SUCCESS,
   SIGNUP_USER_FAIL,
   SIGNUP_USER,
+  LOAD_USER_PROFILE,
 } from './types';
+
+const ROOT_URL = 'https://bazaar-backend.herokuapp.com/api';
 
 export const emailChanged = text => ({
   type: EMAIL_CHANGED,
@@ -29,7 +32,7 @@ export const loginUser = ({ email, password }) => dispatch => {
   dispatch({ type: LOGIN_USER });
 
   axios
-    .post('https://bazaar-backend.herokuapp.com/api/users/login', { email, password })
+    .post(`${ROOT_URL}/users/login`, { email, password })
     .then(async response => {
       const { user, token } = response.data;
 
@@ -85,7 +88,7 @@ export const signupUser = ({ firstName, lastName, email, password }) => dispatch
   dispatch({ type: SIGNUP_USER });
 
   axios
-    .post('https://bazaar-backend.herokuapp.com/api/users/signup', { firstName, lastName, email, password })
+    .post(`${ROOT_URL}/users/signup`, { firstName, lastName, email, password })
     .then(response => {
       const user = response.data.createdUser;
       const token = response.data.token;
@@ -110,4 +113,15 @@ const signupUserSuccess = (dispatch, user, token) => {
 
 const signupUserFail = dispatch => {
   dispatch({ type: SIGNUP_USER_FAIL });
+};
+
+export const loadUserProfile = userId => dispatch => {
+  axios
+    .get(`${ROOT_URL}/users/${userId}/`)
+    .then(response => {
+      dispatch({ type: LOAD_USER_PROFILE, payload: response.data.user });
+    })
+    .catch(err => {
+      console.log(`Error in loadUSerProfile: \n ${err}`);
+    });
 };

@@ -16,3 +16,4 @@ export const EDIT_SERVICE = 'edit_service';
 export const DELETE_SERVICE = 'delete_service';
 
 export const FETCH_ALL_SERVICES = 'fetch_all_services';
+export const LOAD_USER_PROFILE = 'load_user_profile';

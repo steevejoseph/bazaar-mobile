@@ -6,6 +6,7 @@ import ImagePicker from 'react-native-image-picker';
 import axios from 'axios';
 import Carousel from 'react-native-carousel';
 import { Card, CardSection, Button, Spinner, Header, Footer } from '../common';
+import { loadUserProfile } from '../../actions';
 
 const ROOT_URL = 'https://bazaar-backend.herokuapp.com/api';
 
@@ -26,7 +27,9 @@ class Profile extends Component {
     };
   }
 
-  // TODO: Add componentWillMount to pull new user data from API.
+  componentWillMount() {
+    this.props.loadUserProfile(this.props.user._id);
+  }
 
   getImg(photos) {
     return photos.map(photo => (
@@ -174,5 +177,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {}
+  { loadUserProfile }
 )(Profile);
