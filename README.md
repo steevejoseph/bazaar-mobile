@@ -1,6 +1,11 @@
 # bazaar-mobile
 Mobile counterpart to Bazaar.
 
+[Link to the Snack!](https://snack.expo.io/@git/github.com/steevejoseph/bazaar-mobile:bazaar_mobile_expo)
+
+https://snack.expo.io/@git/github.com/steevejoseph/bazaar-mobile:bazaar_mobile_expo
+
+
 Developed for:
 * Android (Marshmallow and beyond)
 * iOS
