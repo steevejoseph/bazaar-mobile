@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
 import { Text, View, Linking, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import { Card, CardSection, Button, Spinner, Header, Footer } from '../common';
+import ServiceList from '../ServiceList';
+import { fetchFavorites, addFavorite } from '../../actions';
 
 class Favorites extends Component {
+  componentWillMount() {
+    this.props.fetchFavorites(this.props.user._id);
+  }
+
   render() {
-    const { scrollViewStyle, placeholderStyle } = styles;
+    // const { scrollViewStyle, placeholderStyle } = styles;
     return (
       <Card>
-        <ScrollView style={{ backgroundColor: '#f8f8f8' }} contentContainerStyle={scrollViewStyle}>
-          <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-            <Text style={placeholderStyle}>You have no favorites.</Text>
-          </View>
-        </ScrollView>
-        <Footer footerText="" />
+        <ServiceList
+          services={this.props.favorites}
+          favorites={this.props.favorites}
+          addFavorite={this.props.addFavorite}
+        />
+        <Footer />
       </Card>
     );
   }
@@ -33,4 +40,15 @@ const styles = {
   },
 };
 
-export default Favorites;
+const mapStateToProps = state => ({
+  user: state.auth.user,
+  favorites: state.service.favorites,
+});
+
+export default connect(
+  mapStateToProps,
+  {
+    fetchFavorites,
+    addFavorite
+  }
+)(Favorites);

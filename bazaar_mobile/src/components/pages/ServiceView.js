@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { Text, View, ImageBackground } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import Carousel from 'react-native-carousel';
 import { Card, CardSection, Button } from '../common';
 
 class ServiceView extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { isFavorite: props.isFavorite };
+  }
+
   getImg(photos) {
     return photos.map(photo => (
       <View key={photo}>
@@ -13,10 +19,12 @@ class ServiceView extends Component {
   }
 
   renderPhotos() {
-    if (this.props.service.photos) {
+    const { photos } = this.props.service;
+
+    if (photos) {
       return (
         <Carousel loop animate hideIndicators delay={4000}>
-          {this.getImg(this.props.service.photos)}
+          {this.getImg(photos)}
         </Carousel>
       );
     }
@@ -24,9 +32,26 @@ class ServiceView extends Component {
     // TODO: add else clause returning stock pic.
   }
 
+  onFavorite() {
+    const { isFavorite } = this.state;
+    const { service } = this.props;
+    const newState = { isFavorite: !isFavorite };
+
+    if (isFavorite) {
+      // TODO: remove from favorites
+    }
+    else this.props.addFavorite(service._id);
+
+    this.setState(newState);
+    this.props.updateParents(newState);
+  }
+
   render() {
+    const { isFavorite } = this.state;
     const { service } = this.props;
     const { cardSectionStyle, serviceFieldStyle, serviceValueStyle } = styles;
+    const favoriteText = isFavorite ? 'Un-Favorite' : 'Favorite';
+
     return (
       <Card>
         {this.renderPhotos()}
@@ -50,7 +75,12 @@ class ServiceView extends Component {
           <Text style={serviceFieldStyle}>Owner:</Text>
           <Text style={serviceValueStyle}>{service.owner}</Text>
         </CardSection>
-        <Button style={{ backgroundColor: '#dc3545', marginBottom: 10 }}>Interested</Button>
+        <Button style={{ marginBottom: 5 }} onPress={this.onFavorite.bind(this)}>
+          {favoriteText}
+        </Button>
+        <Button style={{ backgroundColor: '#dc3545', marginBottom: 10 }}>
+          Interested
+        </Button>
       </Card>
     );
   }
