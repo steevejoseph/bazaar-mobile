@@ -1,6 +1,14 @@
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
-import { FETCH_USER_SERVICES, CREATE_SERVICE, EDIT_SERVICE, DELETE_SERVICE, FETCH_ALL_SERVICES } from './types';
+import {
+  FETCH_USER_SERVICES,
+  CREATE_SERVICE,
+  EDIT_SERVICE,
+  DELETE_SERVICE,
+  FETCH_ALL_SERVICES,
+  FETCH_FAVORITES,
+  ADD_FAVORITE,
+} from './types';
 
 const ROOT_URL = 'https://bazaar-backend.herokuapp.com/api';
 
@@ -64,4 +72,24 @@ export const fetchAllServices = () => dispatch => {
       dispatch({ type: FETCH_ALL_SERVICES, payload: response.data.services });
     })
     .catch(err => console.log(`Error in fetchAllServices: \n ${err}`));
+};
+
+export const fetchFavorites = userId => dispatch => {
+  axios
+    .get(`${ROOT_URL}/users/${userId}/`)
+    .then(response => {
+      console.log(response);
+      dispatch({ type: FETCH_FAVORITES, payload: response.data.favoriteServices });
+    })
+    .catch(err => console.log(`Error in fetchFavorites: \n ${err}`));
+};
+
+export const addFavorite = serviceId => dispatch => {
+  console.log(`adding favorite: ${serviceId}`);
+  axios
+    .post(`${ROOT_URL}/users/addFavorite`, { newFavoriteId: serviceId })
+    .then(response => {
+      dispatch({ type: ADD_FAVORITE, payload: response.data.result });
+    })
+    .catch(err => console.log(`Error in addFavorite: \n ${err}`));
 };

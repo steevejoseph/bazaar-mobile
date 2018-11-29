@@ -7,13 +7,17 @@ class ServiceList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      services: this.props.services || [],
+      services: props.services || [],
+      favorites: props.favorites || [],
     };
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.services !== this.props.services) {
       this.setState({ services: nextProps.services });
+    }
+    if (nextProps.favorites !== this.props.favorites) {
+      this.setState({ favorites: nextProps.favorites });
     }
   }
 
@@ -33,7 +37,14 @@ class ServiceList extends Component {
   }
 
   renderItem(service) {
-    return <ServiceListItem service={service} />;
+    const favoriteIds = this.state.favorites.map(favorite => favorite._id);
+    const isFavorite = favoriteIds.includes(service.item._id);
+
+    return <ServiceListItem
+      service={service}
+      isFavorite={isFavorite}
+      addFavorite={this.props.addFavorite}
+    />;
   }
 
   render() {
@@ -50,7 +61,7 @@ class ServiceList extends Component {
         <FlatList
           style={{ backGroundColor: '#f8f8f8' }}
           data={this.state.services}
-          renderItem={this.renderItem}
+          renderItem={this.renderItem.bind(this)}
           keyExtractor={(item, index) => index.toString()} // TODO: make KeyExtractor pull service ID.
         />
       </View>

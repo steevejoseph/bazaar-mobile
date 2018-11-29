@@ -4,6 +4,8 @@ import {
   CREATE_SERVICE,
   EDIT_SERVICE,
   DELETE_SERVICE,
+  FETCH_FAVORITES,
+  ADD_FAVORITE,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -31,6 +33,15 @@ export default (state = INITIAL_STATE, action) => {
 
     case DELETE_SERVICE:
       return { ...state, services: action.payload };
+
+    case FETCH_FAVORITES:
+      return { ...state, favorites: action.payload };
+
+    case ADD_FAVORITE:
+      return {
+        ...state,
+        favorites: [...state.favorites, action.payload]
+      };
 
     default:
       return state;

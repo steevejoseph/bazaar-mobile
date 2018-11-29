@@ -3,17 +3,22 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { Card, Footer } from '../common';
 import ServiceList from '../ServiceList';
-import { fetchAllServices } from '../../actions';
+import { fetchAllServices, fetchFavorites, addFavorite } from '../../actions';
 
 class Explore extends Component {
   componentWillMount() {
+    this.props.fetchFavorites(this.props.user._id);
     this.props.fetchAllServices();
   }
 
   render() {
     return (
       <Card>
-        <ServiceList services={this.props.services} />
+        <ServiceList
+          services={this.props.services}
+          favorites={this.props.favorites}
+          addFavorite={this.props.addFavorite}
+        />
         <Footer />
       </Card>
     );
@@ -21,10 +26,16 @@ class Explore extends Component {
 }
 
 const mapStateToProps = state => ({
+  user: state.auth.user,
   services: state.service.services,
+  favorites: state.service.favorites,
 });
 
 export default connect(
   mapStateToProps,
-  { fetchAllServices }
+  {
+    fetchAllServices,
+    fetchFavorites,
+    addFavorite
+  }
 )(Explore);
