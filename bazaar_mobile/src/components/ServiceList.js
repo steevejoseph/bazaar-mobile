@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { FlatList, View } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import ServiceListItem from './ServiceListItem';
+import { CATEGORIES } from '../constants';
 
 class ServiceList extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       services: props.services || [],
       favorites: props.favorites || [],
@@ -47,7 +49,29 @@ class ServiceList extends Component {
     />;
   }
 
+  getSections() {
+    const byCategory = {};
+    const sections = [];
+
+    this.state.services.forEach(service => {
+      if (service.tags[0] && byCategory[service.tags[0]])
+        byCategory[service.tags[0]].push(service);
+      else if(service.tags && service.tags.length === 1)
+        byCategory[service.tags[0]] = [ service ];
+    });
+
+    for (var key in byCategory) {
+      sections.push({
+        title: key,
+        data: byCategory[key],
+      });
+    }
+
+    return sections;
+  }
+
   render() {
+    this.getSections();
     return (
       <View style={{ flexDirection: 'column', flex: 1 }}>
         <SearchBar
