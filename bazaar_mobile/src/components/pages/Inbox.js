@@ -1,19 +1,58 @@
 import React, { Component } from 'react';
-import { Text, View, Linking, ScrollView } from 'react-native';
+import { Text, View, Linking, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import { Card, CardSection, Button, Spinner, Header, Footer } from '../common';
+import { fetchJoinableRooms } from '../../actions';
 
 class Inbox extends Component {
+  constructor(props) {
+    // console.log(props.currentUser.rooms);
+    super(props);
+    this.state = {
+      rooms: [],
+    };
+  }
+
+  // componentDidMount() {
+  //   this.props.fetchJoinableRooms(this.props.currentUser);
+  // }
+
+  renderItem(roomItem) {
+    const room = roomItem.item;
+    // console.log(room);
+    return (
+      <TouchableOpacity onPress={() => Actions.ChatHistory({ roomId: room.id, currentUser: this.props.currentUser })}>
+        <Text>{room.name}</Text>
+      </TouchableOpacity>
+    );
+  }
+
+  renderRooms() {
+    console.log(this.props.currentUser.rooms);
+    if (!this.props.currentUser.rooms || this.props.currentUser.rooms.length < 1) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+          <Text style={styles.placeholderStyle}>You have no messages.</Text>
+        </View>
+      );
+    }
+
+    return (
+      <FlatList
+        // style={{ backGroundColor: '#f8f8f8' }}
+        data={this.props.currentUser.rooms}
+        renderItem={this.renderItem.bind(this)}
+        keyExtractor={(item, index) => index.toString()}
+      />
+    );
+  }
+
   render() {
-    const { scrollViewStyle, placeholderStyle } = styles;
     return (
       <Card>
-        <ScrollView style={{ backgroundColor: '#f8f8f8' }} contentContainerStyle={scrollViewStyle}>
-          <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-            <Text style={placeholderStyle}>You have no messages.</Text>
-          </View>
-        </ScrollView>
-        <Footer footerText="" />
+        {this.renderRooms()}
+        <Footer />
       </Card>
     );
   }
@@ -33,4 +72,12 @@ const styles = {
   },
 };
 
-export default Inbox;
+const mapStateToProps = state => ({
+  currentUser: state.chat.currentUser,
+  joinableRooms: state.chat.joinableRooms,
+});
+
+export default connect(
+  mapStateToProps,
+  { fetchJoinableRooms }
+)(Inbox);
