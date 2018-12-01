@@ -6,21 +6,8 @@ import { Card, CardSection, Button, Spinner, Header, Footer } from '../common';
 import { fetchJoinableRooms } from '../../actions';
 
 class Inbox extends Component {
-  constructor(props) {
-    // console.log(props.currentUser.rooms);
-    super(props);
-    this.state = {
-      rooms: [],
-    };
-  }
-
-  // componentDidMount() {
-  //   this.props.fetchJoinableRooms(this.props.currentUser);
-  // }
-
   renderItem(roomItem) {
     const room = roomItem.item;
-    // console.log(room);
     return (
       <TouchableOpacity onPress={() => Actions.ChatHistory({ roomId: room.id, currentUser: this.props.currentUser })}>
         <Text>{room.name}</Text>
@@ -29,10 +16,15 @@ class Inbox extends Component {
   }
 
   renderRooms() {
-    console.log(this.props.currentUser.rooms);
     if (!this.props.currentUser.rooms || this.props.currentUser.rooms.length < 1) {
       return (
-        <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
           <Text style={styles.placeholderStyle}>You have no messages.</Text>
         </View>
       );
@@ -40,7 +32,6 @@ class Inbox extends Component {
 
     return (
       <FlatList
-        // style={{ backGroundColor: '#f8f8f8' }}
         data={this.props.currentUser.rooms}
         renderItem={this.renderItem.bind(this)}
         keyExtractor={(item, index) => index.toString()}
@@ -59,11 +50,6 @@ class Inbox extends Component {
 }
 
 const styles = {
-  scrollViewStyle: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 200,
-  },
   placeholderStyle: {
     color: '#333',
     opacity: 0.25,

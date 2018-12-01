@@ -3,22 +3,6 @@ import { Text, View, Linking, ScrollView, FlatList, TextInput } from 'react-nati
 import { Actions } from 'react-native-router-flux';
 import { Card, CardSection, Button, Spinner, Header, Footer, Input } from '../common';
 
-// const i = 0;
-// const msg = [
-//   {
-//     senderId: 'nini',
-//     text: 'Hi there',
-//   },
-//   {
-//     senderId: 'rando',
-//     text: 'oh hey',
-//   },
-//   {
-//     senderId: 'nini',
-//     text: 'ur shoes untied',
-//   },
-// ];
-
 class ChatHistory extends Component {
   constructor(props) {
     console.log(props.currentUser);
@@ -31,7 +15,8 @@ class ChatHistory extends Component {
     };
   }
 
-  componentWillMount() {
+  // test changing this to componentDidMount()
+  componentDidMount() {
     // this.setState({ messages: [] });
     const roomId = this.state.roomId;
 
@@ -46,9 +31,10 @@ class ChatHistory extends Component {
           },
         },
       })
-      .then(room => {
-        this.setState({ roomId: room.id });
-      })
+      // don't think this is necessary, roomId being passed as a prop.
+      // .then(room => {
+      //   this.setState({ roomId: room.id });
+      // })
       .catch(err => console.log('error on subscribing to room', err));
   }
 
@@ -76,7 +62,6 @@ class ChatHistory extends Component {
         <FlatList
           style={{ backgroundColor: '#f8f8f8' }}
           data={this.state.messages}
-          // data={msg}
           renderItem={this.renderItem.bind(this)}
           keyExtractor={(item, index) => index.toString()} // TODO: make KeyExtractor pull service ID.
         />
@@ -100,7 +85,6 @@ class ChatHistory extends Component {
   }
 
   render() {
-    const { scrollViewStyle, placeholderStyle } = styles;
     return (
       <Card>
         <ScrollView style={{ backgroundColor: '#f8f8f8' }}>{this.renderMessages()}</ScrollView>
