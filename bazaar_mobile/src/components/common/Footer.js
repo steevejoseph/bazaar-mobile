@@ -30,14 +30,16 @@ const Footer = props => {
 const styles = {
   viewStyle: {
     flexDirection: 'row',
-    backgroundColor: '#FFF',
+    backgroundColor: '#fff',
     justifyContent: 'space-around',
     alignItems: 'space-around',
     height: 50,
-    paddingTop: 0,
-    // shadowColor: '#000',
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 1.0,
+    position: 'relative',
+    shadowRadius: 10,
+    shadowColor: '#000',
+    elevation: 10,
   },
 
   textStyle: {
