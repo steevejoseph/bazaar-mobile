@@ -51,27 +51,6 @@ class ServiceList extends Component {
     return <CategoryCard title={category.title} description={category.description} />;
   }
 
-  getSections() {
-    const byCategory = {};
-    const sections = [];
-
-    this.state.services.forEach(service => {
-      if (service.tags[0] && byCategory[service.tags[0]])
-        byCategory[service.tags[0]].push(service);
-      else if(service.tags && service.tags.length === 1)
-        byCategory[service.tags[0]] = [ service ];
-    });
-
-    for (var key in byCategory) {
-      sections.push({
-        title: key,
-        data: byCategory[key],
-      });
-    }
-
-    return sections;
-  }
-
   render() {
     console.log(CATEGORIES);
     return (
