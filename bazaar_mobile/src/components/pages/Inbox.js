@@ -2,15 +2,29 @@ import React, { Component } from 'react';
 import { Text, View, Linking, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import { Avatar } from 'react-native-elements';
 import { Card, CardSection, Button, Spinner, Header, Footer } from '../common';
 import { fetchJoinableRooms } from '../../actions';
 
 class Inbox extends Component {
   renderItem(roomItem) {
     const room = roomItem.item;
+    const { messageContainerStyle, roomNameStyle } = styles;
     return (
       <TouchableOpacity onPress={() => Actions.ChatHistory({ roomId: room.id, currentUser: this.props.currentUser })}>
-        <Text>{room.name}</Text>
+        <CardSection style={messageContainerStyle}>
+          <Avatar
+            medium
+            rounded
+            source={{
+              uri:
+                'http://meridianpm.us/wp-content/uploads/2016/05/depositphotos_133352102-stock-illustration-default-placeholder-profile-icon-300x300.jpg',
+            }}
+            // onPress={() => console.log('Works!')}
+            activeOpacity={0.7}
+          />
+          <Text style={roomNameStyle}>{room.name}</Text>
+        </CardSection>
       </TouchableOpacity>
     );
   }
@@ -55,6 +69,21 @@ const styles = {
     opacity: 0.25,
     fontSize: 16,
     fontWeight: '600',
+  },
+
+  messageContainerStyle: {
+    borderBottomWidth: 0,
+    padding: 5,
+    backgroundColor: '#fff',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    position: 'relative',
+  },
+
+  roomNameStyle: {
+    fontSize: 18,
+    alignSelf: 'center',
+    paddingLeft: 10,
   },
 };
 
