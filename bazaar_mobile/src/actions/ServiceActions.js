@@ -78,7 +78,7 @@ export const fetchFavorites = userId => dispatch => {
   axios
     .get(`${ROOT_URL}/users/${userId}/`)
     .then(response => {
-      console.log(response);
+      // console.log(response);
       dispatch({ type: FETCH_FAVORITES, payload: response.data.favoriteServices });
     })
     .catch(err => console.log(`Error in fetchFavorites: \n ${err}`));

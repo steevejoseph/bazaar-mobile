@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, ScrollView } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import ServiceListItem from './ServiceListItem';
+import { CategoryCard } from './common/CategoryCard';
 import { CATEGORIES } from '../constants';
 
 class ServiceList extends Component {
@@ -42,11 +43,12 @@ class ServiceList extends Component {
     const favoriteIds = this.state.favorites.map(favorite => favorite._id);
     const isFavorite = favoriteIds.includes(service.item._id);
 
-    return <ServiceListItem
-      service={service}
-      isFavorite={isFavorite}
-      addFavorite={this.props.addFavorite}
-    />;
+    return <ServiceListItem service={service} isFavorite={isFavorite} addFavorite={this.props.addFavorite} />;
+  }
+
+  renderCategoryCard(categoryItem) {
+    const category = categoryItem.item;
+    return <CategoryCard title={category.title} description={category.description} />;
   }
 
   getSections() {
@@ -71,9 +73,9 @@ class ServiceList extends Component {
   }
 
   render() {
-    this.getSections();
+    console.log(CATEGORIES);
     return (
-      <View style={{ flexDirection: 'column', flex: 1 }}>
+      <ScrollView style={{ flex: 1 }}>
         <SearchBar
           lightTheme
           containerStyle={{ backgroundColor: '#fff', marginBottom: 0, paddingBottom: 0 }}
@@ -83,12 +85,19 @@ class ServiceList extends Component {
           placeholder="What brings you?"
         />
         <FlatList
+          horizontal
+          style={{ backGroundColor: '#f8f8f8' }}
+          data={CATEGORIES}
+          renderItem={this.renderCategoryCard.bind(this)}
+          keyExtractor={(item, index) => index.toString()} // TODO: make KeyExtractor pull service ID.
+        />
+        <FlatList
           style={{ backGroundColor: '#f8f8f8' }}
           data={this.state.services}
           renderItem={this.renderItem.bind(this)}
           keyExtractor={(item, index) => index.toString()} // TODO: make KeyExtractor pull service ID.
         />
-      </View>
+      </ScrollView>
     );
   }
 }

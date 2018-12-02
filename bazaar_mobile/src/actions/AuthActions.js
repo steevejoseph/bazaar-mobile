@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 import { AsyncStorage } from 'react-native';
+import { ChatManager, TokenProvider } from '@pusher/chatkit-client';
+import { fetchJoinableRooms } from './ChatActions';
 
 import {
   EMAIL_CHANGED,
@@ -14,6 +16,8 @@ import {
   SIGNUP_USER_FAIL,
   SIGNUP_USER,
   LOAD_USER_PROFILE,
+  CONNECT_USER_TO_CHAT,
+  FETCH_USERS_ROOMS,
 } from './types';
 
 const ROOT_URL = 'https://bazaar-backend.herokuapp.com/api';
@@ -71,7 +75,33 @@ const loginUserSuccess = (dispatch, user) => {
     payload: user,
   });
 
-  Actions.Explore({ type: 'reset' });
+  const tokenUrl =
+    'https://us1.pusherplatform.io/services/chatkit_token_provider/v1/b90a149b-4af4-4243-9831-b133bff9a54e/token';
+  const instanceLocator = 'v1:us1:b90a149b-4af4-4243-9831-b133bff9a54e';
+
+  const chatManager = new ChatManager({
+    instanceLocator,
+    userId: user._id,
+    tokenProvider: new TokenProvider({
+      url: tokenUrl,
+    }),
+  });
+
+  chatManager
+    .connect()
+    .then(currentUser => {
+      // console.log(currentUser);
+      dispatch({ type: CONNECT_USER_TO_CHAT, payload: currentUser });
+
+      currentUser
+        .getJoinableRooms()
+        .then(joinableRooms => {
+          dispatch({ type: FETCH_USERS_ROOMS, payload: joinableRooms });
+          Actions.Explore({ type: 'reset' });
+        })
+        .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
 };
 
 export const firstNameChanged = text => ({

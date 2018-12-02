@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
 import axios from 'axios';
 import Carousel from 'react-native-carousel';
-import { Card, CardSection, Button, Spinner, Header, Footer } from '../common';
+import { Avatar, Button } from 'react-native-elements';
+import { Card, CardSection, Spinner, Header, Footer } from '../common';
 import { loadUserProfile } from '../../actions';
 
 const ROOT_URL = 'https://bazaar-backend.herokuapp.com/api';
@@ -101,39 +102,39 @@ class Profile extends Component {
     const { infoTextStyle, infoContainerStyle, userTextStyle } = styles;
     return (
       <Card>
-        {this.renderPhotos()}
-        <ScrollView style={{ backgroundColor: '#f8f8f8' }}>
-          <CardSection style={infoContainerStyle}>
-            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start' }}>
-              <Text style={infoTextStyle}>First Name</Text>
-              <Text style={userTextStyle}>{firstName}</Text>
-            </View>
-          </CardSection>
-          <CardSection style={infoContainerStyle}>
-            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start' }}>
-              <Text style={infoTextStyle}>Last Name</Text>
-              <Text style={userTextStyle}>{lastName}</Text>
-            </View>
-          </CardSection>
-          <CardSection style={infoContainerStyle}>
-            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start' }}>
-              <Text style={infoTextStyle}>Email </Text>
-              <Text style={[userTextStyle, { textAlign: 'left' }]}>{email}</Text>
-            </View>
-          </CardSection>
-          {/* <CardSection style={infoContainerStyle}>
-            <Text style={infoTextStyle}>Phone number:</Text>
-          </CardSection> */}
-          <Button onPress={this.renderImagePicker.bind(this)}>Choose image</Button>
-          {this.renderUploadButton()}
-        </ScrollView>
-        <Button
-          style={{ backgroundColor: 'red', marginBottom: 10, alignSelf: 'stretch' }}
-          onPress={() => Actions.Landing({ type: 'reset' })}
-        >
-          Logout
-        </Button>
-        <Footer footerText="" />
+        {/* {this.renderPhotos()} */}
+        <CardSection style={infoContainerStyle}>
+          <Avatar
+            xlarge
+            rounded
+            source={{
+              uri:
+                'http://meridianpm.us/wp-content/uploads/2016/05/depositphotos_133352102-stock-illustration-default-placeholder-profile-icon-300x300.jpg',
+            }}
+            // onPress={() => console.log('Works!')}
+            activeOpacity={0.7}
+          />
+          <Text style={userTextStyle}>{`${firstName} ${lastName}`}</Text>
+          <Text style={{ fontSize: 24 }}>{email}</Text>
+          <Button
+            title="LOGOUT"
+            onPress={() => Actions.Landing({ type: 'reset' })}
+            titleStyle={{ fontWeight: '700' }}
+            buttonStyle={{
+              backgroundColor: 'rgba(92, 99,216, 1)',
+              width: 300,
+              height: 45,
+              borderColor: 'transparent',
+              borderWidth: 0,
+              borderRadius: 5,
+              marginTop: 50,
+            }}
+            // containerStyle={{ marginTop: 20 }}
+          />
+        </CardSection>
+        {/* <Button onPress={this.renderImagePicker.bind(this)}>Choose image</Button>
+          {this.renderUploadButton()} */}
+        <Footer />
       </Card>
     );
   }
@@ -142,28 +143,15 @@ class Profile extends Component {
 const styles = {
   infoContainerStyle: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: 20,
   },
-
-  infoTextStyle: {
-    flexDirection: 'row',
-    color: '#000',
-    fontSize: 16,
-    fontWeight: '600',
-    paddingTop: 10,
-    paddingBottom: 10,
-    opacity: 0.5,
-    width: 80,
-  },
-
   userTextStyle: {
-    flex: 1,
+    // flex: 1,
     color: '#333',
-    fontSize: 16,
-    alignSelf: 'center',
-    textAlign: 'left',
-    marginLeft: 20,
+    fontSize: 32,
     paddingTop: 10,
     paddingBottom: 10,
     fontWeight: '800',

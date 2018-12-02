@@ -20,3 +20,8 @@ export const LOAD_USER_PROFILE = 'load_user_profile';
 
 export const FETCH_FAVORITES = 'fetch_favorites';
 export const ADD_FAVORITE = 'add_favorite';
+
+export const CONNECT_USER_TO_CHAT = 'connect_user_to_chat';
+export const FETCH_USERS_ROOMS = 'fetch_users_rooms';
+export const CREATE_ROOM = 'create_room';
+export const SEND_MESSAGE = 'send_message';
