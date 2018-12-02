@@ -15,6 +15,7 @@ import {
   MyServiceView,
   ServiceCreate,
   ServiceEdit,
+  UserView,
 } from './components/pages/index';
 
 import { ChatHistory } from './components/chat/index';
@@ -47,6 +48,7 @@ const RouterComponent = () => {
         <Scene key="Inbox" component={Inbox} title="Inbox" />
         <Scene key="Profile" component={Profile} title="Profile" />
         <Scene key="ChatHistory" component={ChatHistory} title="Chat History" />
+        <Scene key="UserView" component={UserView} title="User View" />
       </Scene>
     </Router>
   );

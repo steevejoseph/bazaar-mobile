@@ -15,6 +15,7 @@
     "react-native-carousel": "^0.11.0",
     "react-native-elements": "^0.19.1",
     "react-native-image-picker": "^0.27.1",
+    "react-native-markdown-renderer": "^3.2.8",
     "react-native-router-flux": "^4.0.6",
     "react-native-vector-icons": "^6.1.0",
     "react-redux": "^5.1.1",

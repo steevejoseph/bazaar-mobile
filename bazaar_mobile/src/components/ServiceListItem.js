@@ -6,7 +6,7 @@ import { CardSection } from './common';
 class ServiceListItem extends Component {
   constructor(props) {
     super(props);
-    this.state = { isFavorite: props.isFavorite }
+    this.state = { isFavorite: props.isFavorite };
   }
 
   update(newState) {
@@ -24,7 +24,7 @@ class ServiceListItem extends Component {
 
   render() {
     const name = this.props.service.item.name;
-    var textStyle = [styles.titleStyle]
+    const textStyle = [styles.titleStyle];
     if (this.state.isFavorite) textStyle.push(styles.favoriteStyle);
 
     return (

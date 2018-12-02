@@ -1,15 +1,48 @@
 import React, { Component } from 'react';
-import { Text, View, ImageBackground } from 'react-native';
+import { Text, View, ImageBackground, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Carousel from 'react-native-carousel';
 import { connect } from 'react-redux';
+import axios from 'axios';
+import Markdown from 'react-native-markdown-renderer';
 import { Card, CardSection, Button } from '../common';
 import { createRoom } from '../../actions';
+import ServiceComment from '../service/ServiceComment';
+
+const ROOT_URL = 'https://bazaar-backend.herokuapp.com/api';
 
 class ServiceView extends Component {
   constructor(props) {
     super(props);
-    this.state = { isFavorite: props.isFavorite };
+    this.state = {
+      isFavorite: props.isFavorite,
+      comments: [],
+      serviceOwner: {
+        firstName: '',
+        lastName: '',
+        email: '',
+      },
+    };
+  }
+
+  componentWillMount() {
+    axios
+      .get(`${ROOT_URL}/users/${this.props.service.owner}`)
+      .then(response => {
+        console.log(response);
+        this.setState({ serviceOwner: response.data.user });
+      })
+      .catch(err => console.log(err));
+  }
+
+  componentDidMount() {
+    axios
+      .get(`${ROOT_URL}/services/${this.props.service._id}`)
+      .then(res => {
+        // console.log(res);
+        this.setState({ comments: res.data.comments });
+      })
+      .catch(err => console.log(err));
   }
 
   onFavorite() {
@@ -23,6 +56,10 @@ class ServiceView extends Component {
 
     this.setState(newState);
     this.props.updateParents(newState);
+  }
+
+  onOwnerPress() {
+    Actions.UserView({ owner: this.state.serviceOwner });
   }
 
   getImg(photos) {
@@ -51,6 +88,11 @@ class ServiceView extends Component {
     this.props.createRoom(currentUser, this.props.service.owner, roomName, Actions.ChatHistory);
   }
 
+  renderCommentItem(commentItem) {
+    const comment = commentItem.item;
+    return <ServiceComment comment={comment} />;
+  }
+
   renderMessageSeller() {
     if (this.props.service.owner !== this.props.user._id) {
       return <Button onPress={this.handleMessageSeller.bind(this)}>Message Seller</Button>;
@@ -71,14 +113,30 @@ class ServiceView extends Component {
     // TODO: add else clause returning stock pic.
   }
 
+  renderComments() {
+    const comments = this.state.comments;
+    if (comments && comments.length >= 1) {
+      return (
+        <View>
+          <Text>Ratings ({comments.length})</Text>
+          <FlatList
+            data={this.state.comments}
+            renderItem={this.renderCommentItem.bind(this)}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
+      );
+    }
+  }
+
   render() {
     const { isFavorite } = this.state;
     const { service } = this.props;
     const { cardSectionStyle, serviceFieldStyle, serviceValueStyle } = styles;
     const favoriteText = isFavorite ? 'Un-Favorite' : 'Favorite';
-
+    const serviceOwner = this.state.serviceOwner;
     return (
-      <Card>
+      <ScrollView>
         {this.renderPhotos()}
         <CardSection style={cardSectionStyle}>
           <Text style={serviceFieldStyle}>Name:</Text>
@@ -86,7 +144,9 @@ class ServiceView extends Component {
         </CardSection>
         <CardSection style={cardSectionStyle}>
           <Text style={serviceFieldStyle}>Description:</Text>
-          <Text style={serviceValueStyle}>{service.description}</Text>
+          <View style={{ width: '75%' }}>
+            <Markdown>{`${service.description}`}</Markdown>
+          </View>
         </CardSection>
         <CardSection style={cardSectionStyle}>
           <Text style={serviceFieldStyle}>Category:</Text>
@@ -98,14 +158,16 @@ class ServiceView extends Component {
         </CardSection>
         <CardSection style={cardSectionStyle}>
           <Text style={serviceFieldStyle}>Owner:</Text>
-          <Text style={serviceValueStyle}>{service.owner}</Text>
+          <TouchableOpacity onPress={this.onOwnerPress.bind(this)}>
+            <Text style={serviceValueStyle}>{`${serviceOwner.firstName}  ${serviceOwner.lastName}`}</Text>
+          </TouchableOpacity>
         </CardSection>
+        {this.renderComments()}
         <Button style={{ marginBottom: 5 }} onPress={this.onFavorite.bind(this)}>
           {favoriteText}
         </Button>
-        <Button style={{ backgroundColor: '#dc3545', marginBottom: 10 }}>Interested</Button>
         {this.renderMessageSeller()}
-      </Card>
+      </ScrollView>
     );
   }
 }

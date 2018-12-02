@@ -40,11 +40,7 @@ class ServiceList extends Component {
     const favoriteIds = this.state.favorites.map(favorite => favorite._id);
     const isFavorite = favoriteIds.includes(service.item._id);
 
-    return <ServiceListItem
-      service={service}
-      isFavorite={isFavorite}
-      addFavorite={this.props.addFavorite}
-    />;
+    return <ServiceListItem service={service} isFavorite={isFavorite} addFavorite={this.props.addFavorite} />;
   }
 
   render() {
