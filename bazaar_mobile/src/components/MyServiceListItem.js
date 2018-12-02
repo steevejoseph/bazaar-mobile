@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Text, TouchableWithoutFeedback, View } from 'react-native';
+import { Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { CardSection, Button } from './common';
+import { Card, Button } from 'react-native-elements';
 
 class MyServiceListItem extends Component {
   onRowPress() {
@@ -14,36 +14,19 @@ class MyServiceListItem extends Component {
   }
 
   render() {
-    const name = this.props.service.item.name;
+    const { name, description } = this.props.service.item;
     return (
-      <View style={styles.rowStyle}>
-        <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
-          <View style={styles.stretchStyle}>
-            <CardSection>
-              <Text style={styles.titleStyle}>{name}</Text>
-            </CardSection>
-          </View>
-        </TouchableWithoutFeedback>
-        {/* <Button onPress={this.onDelete.bind(this)}>
-          Delete
-        </Button> */}
-      </View>
+      <Card title={name} image={{ uri: 'http://www.alpineworld.com.au/wp-content/uploads/2014/12/sts3069.jpg' }}>
+        <Text style={{ marginBottom: 10 }}>{description}</Text>
+        <Button
+          backgroundColor="#03A9F4"
+          buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0 }}
+          title="VIEW NOW"
+          onPress={this.onRowPress.bind(this)}
+        />
+      </Card>
     );
   }
 }
-
-const styles = {
-  titleStyle: {
-    fontSize: 18,
-    paddingLeft: 15,
-  },
-  stretchStyle: {
-    flexGrow: 1,
-  },
-  rowStyle: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-};
 
 export default MyServiceListItem;
