@@ -5,7 +5,8 @@ import Carousel from 'react-native-carousel';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import Markdown from 'react-native-markdown-renderer';
-import { Button } from 'react-native-elements';
+import { Avatar, Badge, Button } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { Card, CardSection } from '../common';
 import { createRoom } from '../../actions';
 import ServiceComment from '../service/ServiceComment';
@@ -108,14 +109,15 @@ class ServiceView extends Component {
         <View style={styles.viewStyle}>
           <Text style={{ marginBottom: 10, marginLeft: 10, fontWeight: 'bold' }}>${this.props.service.price}</Text>
           <Button
-            buttonStyle={{ marginTop: 5, marginBottom: 5 }}
+            buttonStyle={{ marginTop: 5, marginBottom: 5, backgroundColor: '#fb3b30' }}
             onPress={this.onFavorite.bind(this)}
             title={favoriteText}
           />
           <Button
+            clear
             title="Message Seller"
             onPress={this.handleMessageSeller.bind(this)}
-            buttonStyle={{ marginTop: 5, marginBottom: 5 }}
+            buttonStyle={{ marginTop: 5, marginBottom: 5, backgroundColor: '#2f7aff' }}
           />
         </View>
       );
@@ -184,6 +186,28 @@ class ServiceView extends Component {
           <CardSection style={styles.cardSectionStyle}>
             <Text style={serviceNameStyle}>{service.name}</Text>
             <Text style={serviceTagStyle}>{service.tags}</Text>
+            <View style={{ marginLeft: 5 }}>
+              <Icon
+                name="heart"
+                backgroundColor="#ddd"
+                color={this.state.isFavorite ? 'red' : 'grey'}
+                onPress={this.onFavorite.bind(this)}
+                size={20}
+                iconStyle={{ marginRight: 0, color: '#000' }}
+              />
+            </View>
+
+            <Avatar
+              medium
+              rounded
+              source={{
+                uri:
+                  'http://meridianpm.us/wp-content/uploads/2016/05/depositphotos_133352102-stock-illustration-default-placeholder-profile-icon-300x300.jpg',
+              }}
+              // onPress={() => console.log('Works!')}
+              activeOpacity={0.7}
+              containerStyle={{ alignSelf: 'flex-end', marginRight: 20 }}
+            />
             <TouchableOpacity onPress={this.onOwnerPress.bind(this)}>
               <Text style={serviceOwnerStyle}>{`${serviceOwner.firstName}  ${serviceOwner.lastName}`}</Text>
             </TouchableOpacity>
