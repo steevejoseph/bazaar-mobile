@@ -36,6 +36,6 @@ export default connect(
   {
     fetchAllServices,
     fetchFavorites,
-    addFavorite
+    addFavorite,
   }
 )(Explore);
