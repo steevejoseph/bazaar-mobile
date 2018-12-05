@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ImageBackground, FlatList, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, View, Image, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Carousel from 'react-native-carousel';
 import { connect } from 'react-redux';
@@ -8,6 +8,7 @@ import Markdown from 'react-native-markdown-renderer';
 import { Card, CardSection, Button } from '../common';
 import { createRoom } from '../../actions';
 import ServiceComment from '../service/ServiceComment';
+import { CATEGORIES } from '../../constants';
 
 const ROOT_URL = 'https://bazaar-backend.herokuapp.com/api';
 
@@ -62,12 +63,17 @@ class ServiceView extends Component {
     Actions.UserView({ owner: this.state.serviceOwner });
   }
 
-  getImg(photos) {
-    return photos.map(photo => (
-      <View key={photo}>
-        <ImageBackground style={{ width: '100%', height: '100%' }} source={{ uri: photo }} />
-      </View>
-    ));
+  getStockPhotoUrl() {
+    const service = this.props.service;
+
+    // else return stock photo
+    for (let i = 0; i < CATEGORIES.length; i += 1) {
+      if (CATEGORIES[i].title == service.tags) {
+        return CATEGORIES[i].url;
+      }
+    }
+
+    return 'https://images.unsplash.com/photo-1493612276216-ee3925520721?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60';
   }
 
   handleMessageSeller() {
@@ -102,15 +108,30 @@ class ServiceView extends Component {
   renderPhotos() {
     const { photos } = this.props.service;
 
-    if (photos) {
+    if (photos && photos.length >= 1) {
       return (
-        <Carousel loop animate hideIndicators delay={4000}>
-          {this.getImg(photos)}
-        </Carousel>
+        <View style={{ flex: 1, backgroundColor: 'red', width: 375, height: 225 }}>
+          <Carousel loop={false} animate={false} hideIndicators={false} delay={4000} width="100%" height="100%">
+            {photos.map(photo => (
+              // <View>
+              <Image style={{ width: '100%', height: '100%' }} source={{ uri: photo }} />
+              // </View>
+            ))}
+          </Carousel>
+        </View>
       );
     }
 
-    // TODO: add else clause returning stock pic.
+    return (
+      <View>
+        <Image
+          style={{ width: 375, height: 225 }}
+          source={{
+            uri: this.getStockPhotoUrl(),
+          }}
+        />
+      </View>
+    );
   }
 
   renderComments() {
@@ -136,7 +157,7 @@ class ServiceView extends Component {
     const favoriteText = isFavorite ? 'Un-Favorite' : 'Favorite';
     const serviceOwner = this.state.serviceOwner;
     return (
-      <ScrollView>
+      <ScrollView style={{ flex: 1 }}>
         {this.renderPhotos()}
         <CardSection style={cardSectionStyle}>
           <Text style={serviceFieldStyle}>Name:</Text>

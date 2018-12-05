@@ -44,7 +44,7 @@ class ServiceListItem extends Component {
       }
     }
 
-    return 'http://www.alpineworld.com.au/wp-content/uploads/2014/12/sts3069.jpg';
+    return 'https://images.unsplash.com/photo-1493612276216-ee3925520721?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60';
   }
 
   render() {
