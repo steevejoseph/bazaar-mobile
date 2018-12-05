@@ -52,7 +52,7 @@ class ServiceList extends Component {
   }
 
   render() {
-    console.log(CATEGORIES);
+    // console.log(CATEGORIES);
     return (
       <ScrollView style={{ flex: 1 }}>
         <SearchBar
@@ -63,13 +63,13 @@ class ServiceList extends Component {
           onChangeText={text => this.onChangeText(text)}
           placeholder="What brings you?"
         />
-        <FlatList
+        {/* <FlatList
           horizontal
           style={{ backGroundColor: '#f8f8f8' }}
           data={CATEGORIES}
           renderItem={this.renderCategoryCard.bind(this)}
           keyExtractor={(item, index) => index.toString()} // TODO: make KeyExtractor pull service ID.
-        />
+        /> */}
         <FlatList
           style={{ backGroundColor: '#f8f8f8' }}
           data={this.state.services}
