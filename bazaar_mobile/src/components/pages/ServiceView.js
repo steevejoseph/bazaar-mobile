@@ -5,7 +5,8 @@ import Carousel from 'react-native-carousel';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import Markdown from 'react-native-markdown-renderer';
-import { Card, CardSection, Button } from '../common';
+import { Button } from 'react-native-elements';
+import { Card, CardSection } from '../common';
 import { createRoom } from '../../actions';
 import ServiceComment from '../service/ServiceComment';
 import { CATEGORIES } from '../../constants';
@@ -100,8 +101,24 @@ class ServiceView extends Component {
   }
 
   renderMessageSeller() {
+    const favoriteText = this.state.isFavorite ? 'Un-Favorite' : 'Favorite';
+
     if (this.props.service.owner !== this.props.user._id) {
-      return <Button onPress={this.handleMessageSeller.bind(this)}>Message Seller</Button>;
+      return (
+        <View style={styles.viewStyle}>
+          <Text style={{ marginBottom: 10, marginLeft: 10, fontWeight: 'bold' }}>${this.props.service.price}</Text>
+          <Button
+            buttonStyle={{ marginTop: 5, marginBottom: 5 }}
+            onPress={this.onFavorite.bind(this)}
+            title={favoriteText}
+          />
+          <Button
+            title="Message Seller"
+            onPress={this.handleMessageSeller.bind(this)}
+            buttonStyle={{ marginTop: 5, marginBottom: 5 }}
+          />
+        </View>
+      );
     }
   }
 
@@ -138,86 +155,110 @@ class ServiceView extends Component {
     const comments = this.state.comments;
     if (comments && comments.length >= 1) {
       return (
-        <View>
-          <Text>Ratings ({comments.length})</Text>
+        <CardSection style={styles.ratingsContainerStyle}>
+          <Text style={{ marginLeft: 5, marginBottom: 10 }}>Reviews ({comments.length})</Text>
           <FlatList
             data={this.state.comments}
             renderItem={this.renderCommentItem.bind(this)}
             keyExtractor={(item, index) => index.toString()}
           />
-        </View>
+        </CardSection>
       );
     }
+
+    return (
+      <CardSection style={styles.ratingsContainerStyle}>
+        <Text style={{ marginLeft: 5 }}> No reviews yet.</Text>
+      </CardSection>
+    );
   }
 
   render() {
-    const { isFavorite } = this.state;
     const { service } = this.props;
-    const { cardSectionStyle, serviceFieldStyle, serviceValueStyle } = styles;
-    const favoriteText = isFavorite ? 'Un-Favorite' : 'Favorite';
+    const { serviceTagStyle, serviceNameStyle, serviceOwnerStyle, serviceDescriptionContainerStyle } = styles;
     const serviceOwner = this.state.serviceOwner;
     return (
-      <ScrollView style={{ flex: 1 }}>
-        {this.renderPhotos()}
-        <CardSection style={cardSectionStyle}>
-          <Text style={serviceFieldStyle}>Name:</Text>
-          <Text style={serviceValueStyle}>{service.name}</Text>
-        </CardSection>
-        <CardSection style={cardSectionStyle}>
-          <Text style={serviceFieldStyle}>Description:</Text>
-          <View style={{ width: '75%' }}>
-            <Markdown>{`${service.description}`}</Markdown>
-          </View>
-        </CardSection>
-        <CardSection style={cardSectionStyle}>
-          <Text style={serviceFieldStyle}>Category:</Text>
-          <Text style={serviceValueStyle}>{service.tags}</Text>
-        </CardSection>
-        <CardSection style={cardSectionStyle}>
-          <Text style={serviceFieldStyle}>Price:</Text>
-          <Text style={serviceValueStyle}>${service.price}</Text>
-        </CardSection>
-        <CardSection style={cardSectionStyle}>
-          <Text style={serviceFieldStyle}>Owner:</Text>
-          <TouchableOpacity onPress={this.onOwnerPress.bind(this)}>
-            <Text style={serviceValueStyle}>{`${serviceOwner.firstName}  ${serviceOwner.lastName}`}</Text>
-          </TouchableOpacity>
-        </CardSection>
-        {this.renderComments()}
-        <Button style={{ marginBottom: 5 }} onPress={this.onFavorite.bind(this)}>
-          {favoriteText}
-        </Button>
+      <Card>
+        <ScrollView style={{ flex: 1 }}>
+          {this.renderPhotos()}
+          <CardSection style={styles.cardSectionStyle}>
+            <Text style={serviceNameStyle}>{service.name}</Text>
+            <Text style={serviceTagStyle}>{service.tags}</Text>
+            <TouchableOpacity onPress={this.onOwnerPress.bind(this)}>
+              <Text style={serviceOwnerStyle}>{`${serviceOwner.firstName}  ${serviceOwner.lastName}`}</Text>
+            </TouchableOpacity>
+          </CardSection>
+          <CardSection style={{ justifyContent: 'flex-start' }}>
+            <View style={serviceDescriptionContainerStyle}>
+              <Markdown>{`${service.description}`}</Markdown>
+            </View>
+          </CardSection>
+          {this.renderComments()}
+        </ScrollView>
         {this.renderMessageSeller()}
-      </ScrollView>
+      </Card>
     );
   }
 }
 
 const styles = {
   cardSectionStyle: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-  },
-  serviceFieldStyle: {
-    flexDirection: 'row',
-    color: '#000',
-    fontSize: 16,
-    fontWeight: '600',
-    paddingTop: 10,
-    paddingBottom: 10,
-    opacity: 0.5,
-    width: 90,
-  },
-  serviceValueStyle: {
     flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  serviceNameStyle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginLeft: 5,
+  },
+  serviceDescriptionStyle: {
+    marginLeft: 5,
+  },
+  serviceTagStyle: {
+    fontSize: 14,
+    marginLeft: 5,
+  },
+  serviceOwnerStyle: {
+    // flex: 1,
     color: '#333',
     fontSize: 16,
-    alignSelf: 'center',
-    textAlign: 'left',
-    marginLeft: 20,
-    paddingTop: 10,
-    paddingBottom: 10,
-    fontWeight: '800',
+    alignSelf: 'flex-end',
+    marginRight: 5,
+    // textAlign: 'left',
+    // marginLeft: 20,
+    // paddingTop: 10,
+    // paddingBottom: 10,
+    // fontWeight: '800',
+  },
+
+  serviceDescriptionContainerStyle: {
+    padding: 5,
+    backgroundColor: '#fff',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    borderColor: '#ddd',
+    position: 'relative',
+  },
+
+  ratingsContainerStyle: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    borderBottomWidth: 0,
+  },
+
+  viewStyle: {
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    justifyContent: 'space-between',
+    alignItems: 'space-around',
+    height: 50,
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 1.0,
+    position: 'relative',
+    shadowRadius: 10,
+    shadowColor: '#000',
+    elevation: 10,
   },
 };
 

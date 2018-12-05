@@ -5,8 +5,9 @@ import { CardSection } from '../common';
 
 class ServiceComment extends Component {
   render() {
+    const { commentStyle, commentContainerStyle } = styles;
     return (
-      <CardSection>
+      <CardSection style={commentContainerStyle}>
         <Rating
           //   showRating
           type="custom"
@@ -26,5 +27,17 @@ class ServiceComment extends Component {
     );
   }
 }
+
+const styles = {
+  commentStyle: {
+    marginLeft: 5,
+  },
+  commentContainerStyle: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    paddingTop: 5,
+    paddingBottom: 5,
+  },
+};
 
 export default ServiceComment;
