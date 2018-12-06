@@ -19,6 +19,7 @@ import {
 } from './components/pages/index';
 
 import { ChatHistory } from './components/chat/index';
+import CreateReview from './components/service/CreateReview';
 
 const RouterComponent = () => {
   const { navTitleStyle } = styles;
@@ -49,6 +50,7 @@ const RouterComponent = () => {
         <Scene key="Profile" component={Profile} title="Profile" />
         <Scene key="ChatHistory" component={ChatHistory} title="Chat History" />
         <Scene key="UserView" component={UserView} title="User View" />
+        <Scene key="CreateReview" component={CreateReview} title="Create Review" />
       </Scene>
     </Router>
   );

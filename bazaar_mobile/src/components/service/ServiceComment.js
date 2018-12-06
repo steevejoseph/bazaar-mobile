@@ -13,7 +13,7 @@ class ServiceComment extends Component {
           type="custom"
           fractions={1}
           startingValue={this.props.comment.rateing}
-          //   readonly
+          readonly
           imageSize={30}
           //   onFinishRating={this.ratingCompleted}
           //   onStartRating={this.ratingStarted}

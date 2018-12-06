@@ -79,7 +79,7 @@ class ServiceView extends Component {
   }
 
   handleMessageSeller() {
-    console.log('seller messaged!');
+    // console.log('seller messaged!');
     const roomName = `${this.props.user.firstName} - ${this.props.service.name}`;
     const currentUser = this.props.currentUser;
 
@@ -117,7 +117,7 @@ class ServiceView extends Component {
             clear
             title="Message Seller"
             onPress={this.handleMessageSeller.bind(this)}
-            buttonStyle={{ marginTop: 5, marginBottom: 5, backgroundColor: '#2f7aff' }}
+            buttonStyle={{ marginTop: 5, marginBottom: 5, backgroundColor: '#dc3545' }}
           />
         </View>
       );
@@ -159,6 +159,16 @@ class ServiceView extends Component {
       return (
         <CardSection style={styles.ratingsContainerStyle}>
           <Text style={{ marginLeft: 5, marginBottom: 10 }}>Reviews ({comments.length})</Text>
+          <Button
+            buttonStyle={{ marginTop: 5, marginBottom: 5, backgroundColor: '#dc3545', alignSelf: 'flex-end' }}
+            onPress={() =>
+              Actions.CreateReview({
+                user: this.props.user,
+                service: this.props.service,
+              })
+            }
+            title="Add A Review"
+          />
           <FlatList
             data={this.state.comments}
             renderItem={this.renderCommentItem.bind(this)}
@@ -171,6 +181,16 @@ class ServiceView extends Component {
     return (
       <CardSection style={styles.ratingsContainerStyle}>
         <Text style={{ marginLeft: 5 }}> No reviews yet.</Text>
+        <Button
+          buttonStyle={{ marginTop: 5, marginBottom: 5, backgroundColor: '#dc3545', alignSelf: 'flex-end' }}
+          onPress={() =>
+            Actions.CreateReview({
+              user: this.props.user,
+              service: this.props.service,
+            })
+          }
+          title="Add A Review"
+        />
       </CardSection>
     );
   }
